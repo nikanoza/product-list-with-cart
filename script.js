@@ -182,7 +182,7 @@ const amountChangeHandler = (productName, textElement, isIncrement) => {
   const clickedProduct = order.find((item) => productName === item.name);
 
   if (!clickedProduct) {
-    return "product is not in cart";
+    return false;
   }
   if (isIncrement) {
     clickedProduct.amount += 1;
@@ -190,6 +190,10 @@ const amountChangeHandler = (productName, textElement, isIncrement) => {
     clickedProduct.amount -= 1;
   }
   textElement.textContent = clickedProduct.amount;
+  if (clickedProduct.amount === 0) {
+    return true;
+  }
+  return false;
 };
 
 addBtns.forEach((buttonElement) => {
@@ -209,6 +213,14 @@ addBtns.forEach((buttonElement) => {
   });
 
   decrement.addEventListener("click", () => {
-    amountChangeHandler(buttonElement.value, textNumber, false);
+    const isEqualToZero = amountChangeHandler(
+      buttonElement.value,
+      textNumber,
+      false
+    );
+    if (isEqualToZero) {
+      buttonElement.classList.remove("hidden");
+      amountBtn.classList.add("hidden");
+    }
   });
 });
