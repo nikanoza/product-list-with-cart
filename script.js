@@ -1,4 +1,7 @@
 const productsElement = document.querySelector(".products");
+const orderListElement = document.querySelector(".order-list");
+const totalPriceElement = document.querySelector(".total-amount");
+const cartTotalItemAmountElement = document.querySelector(".cart-title");
 const products = [
   {
     image: {
@@ -175,7 +178,15 @@ const amountBtns = document.querySelectorAll(".amount-btn");
 
 const addItemHandler = (productName) => {
   const clickedProduct = products.find((item) => productName === item.name);
-  order.push({ ...clickedProduct, amount: 1 });
+  if (clickedProduct) {
+    const inOrders = order.find((item) => item.name === productName);
+    if (inOrders) {
+      inOrders.amount = 1;
+    } else {
+      order.push({ ...clickedProduct, amount: 1 });
+    }
+    displayOrderList();
+  }
 };
 
 const amountChangeHandler = (productName, textElement, isIncrement) => {
@@ -189,10 +200,11 @@ const amountChangeHandler = (productName, textElement, isIncrement) => {
   } else {
     clickedProduct.amount -= 1;
   }
-  textElement.textContent = clickedProduct.amount;
+  displayOrderList();
   if (clickedProduct.amount === 0) {
     return true;
   }
+  textElement.textContent = clickedProduct.amount;
   return false;
 };
 
@@ -202,6 +214,7 @@ addBtns.forEach((buttonElement) => {
     addItemHandler(buttonElement.value);
     buttonElement.classList.add("hidden");
     amountBtn.classList.remove("hidden");
+    console.log(order);
   });
   const amountElements = amountBtn.children;
   const increment = amountElements[2];
@@ -210,6 +223,7 @@ addBtns.forEach((buttonElement) => {
 
   increment.addEventListener("click", () => {
     amountChangeHandler(buttonElement.value, textNumber, true);
+    console.log(order);
   });
 
   decrement.addEventListener("click", () => {
@@ -221,6 +235,45 @@ addBtns.forEach((buttonElement) => {
     if (isEqualToZero) {
       buttonElement.classList.remove("hidden");
       amountBtn.classList.add("hidden");
+      console.log(order);
     }
   });
 });
+
+function displayOrderList() {
+  orderListElement.innerHTML = "";
+  let sum = 0;
+  let totalAmount = 0;
+  order.forEach((product) => {
+    sum += product.amount * product.price;
+    totalAmount += product.amount;
+    html = `<div class="cart-item">
+  <div class="item-info">
+    <h3>${product.name}</h3>
+    <div class="item-amount-info">
+      <span class="amount-text">${product.amount}x</span>
+      <span class="one-price">@ $${product.price.toFixed(2)}</span>
+      <span class="item-total-price">$${(
+        product.amount * product.price
+      ).toFixed(2)}</span>
+    </div>
+  </div>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width="10"
+    height="10"
+    fill="none"
+    viewBox="0 0 10 10"
+  >
+    <path
+      fill="#CAAFA7"
+      d="M8.375 9.375 5 6 1.625 9.375l-1-1L4 5 .625 1.625l1-1L5 4 8.375.625l1 1L6 5l3.375 3.375-1 1Z"
+    />
+  </svg>
+</div>`;
+    orderListElement.innerHTML += html;
+  });
+
+  totalPriceElement.innerHTML = "$" + sum.toFixed(2);
+  cartTotalItemAmountElement.innerHTML = `Your Cart (${totalAmount})`;
+}

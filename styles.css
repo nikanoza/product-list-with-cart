@@ -126,6 +126,125 @@ body {
   justify-content: center;
   align-items: center;
 }
+.cart {
+  display: flex;
+  padding: 24px;
+  flex-direction: column;
+  margin-top: 32px;
+  gap: 24px;
+  background-color: #fff;
+  border-radius: 12px;
+}
+.cart-title {
+  color: #c73b0f;
+  font-size: var(--font-size-text-preset-2, 24px);
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+}
+
+.empty-cart {
+  align-self: center;
+}
+
+.total {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 24px;
+}
+.total h4 {
+  color: #260f08;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+.total-amount {
+  color: #260f08;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.cart-info {
+  display: flex;
+  padding: 16px;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  border-radius: 8px;
+  background: #fcf8f6;
+  margin-top: 24px;
+}
+.cart-info h3 {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.btn {
+  padding: 16px 24px;
+  border: none;
+  border-radius: 999px;
+  background: #c73b0f;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 24px;
+  color: #fff;
+}
+
+.cart-item {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid red;
+}
+.item-info h3 {
+  color: #260f08;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+.item-amount-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.amount-text {
+  color: #c73b0f;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+.one-price {
+  color: #87635a;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.item-total-price {
+  color: #87635a;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
 
 .hidden {
   display: none;
